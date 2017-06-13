@@ -5,16 +5,23 @@ import java.util.concurrent.atomic.AtomicInteger
  */
 
 class TaskDao {
-    val tasks = hashMapOf(
-            0 to Task("Learn Kotlin", "Kotlin is awesome!", false),
-            1 to Task("Create a 'Hello World' App", "Using spark framework", false)
+    val tasks = mutableListOf(
+            Task(1, "Learn Kotlin", "Kotlin is awesome!", false),
+            Task(2, "Create a 'Hello World' App", "Using spark framework", false)
     )
 
     var lastId: AtomicInteger = AtomicInteger(tasks.size - 1)
 
-    fun save(name: String, description: String, done: Boolean) {
+    fun add(name: String, description: String, done: Boolean) {
         val id = lastId.incrementAndGet()
-        tasks.put(id, Task(name, description, done))
+        tasks.add(Task(id, name, description, done))
+    }
+
+    fun complete(id: Int) : Boolean {
+        val task: Task = tasks.find { (id1) -> id1 == id } ?: throw IllegalArgumentException("The provided Task ID doesn't exist")
+        task.done = true
+
+        return true
     }
 
 

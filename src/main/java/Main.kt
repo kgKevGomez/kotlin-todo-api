@@ -20,6 +20,11 @@ fun main(args: Array<String>) {
                 jacksonObjectMapper()
                     .writeValueAsString(taskDao.tasks)
             }
+            put(":id") {
+                req, res ->
+                if (taskDao.complete(parseInt(req.params(":id"))))
+                    res.status(204)
+            }
         }
     }
 
