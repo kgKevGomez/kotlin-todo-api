@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
 
     exception(IllegalArgumentException::class.java) { _, _, response ->
         response.status(404)
+        response.body("{\"message\":\"The requested task doesn't exist\"}")
     }
 
     val taskDao = TaskDao()
