@@ -4,9 +4,11 @@
 
 import spark.Spark.*
 import com.fasterxml.jackson.module.kotlin.*
+import java.lang.Integer.parseInt
+
 fun main(args: Array<String>) {
     System.getenv("PORT")
-    port(8080)
+    port(parseInt(System.getenv("PORT")))
 
     // Using string/html
     notFound("<html><body><h1>Custom 404 handling</h1></body></html>")
