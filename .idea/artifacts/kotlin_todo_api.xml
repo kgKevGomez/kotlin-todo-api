@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="kotlin-todo-api">
+    <output-path>$PROJECT_DIR$/out/artifacts/kotlin_todo_api</output-path>
+    <root id="root" />
+  </artifact>
+</component>
