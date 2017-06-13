@@ -14,6 +14,9 @@ fun main(args: Array<String>) {
 
     val taskDao = TaskDao()
     path("/api/v1.0") {
+        before("/*") {
+            request, response -> response.header("Content-Type", "application/json")
+        }
         path("/tasks") {
             get("") {
                 req, res ->
