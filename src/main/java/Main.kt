@@ -9,8 +9,10 @@ import java.lang.Integer.parseInt
 fun main(args: Array<String>) {
     port(parseInt(System.getenv("PORT")))
 
-    // Using string/html
-    notFound("<html><body><h1>Custom 404 handling</h1></body></html>")
+    notFound { req, res ->
+        res.type("application/json")
+        """{"message":"Custom 404"}"""
+    }
 
     val taskDao = TaskDao()
     path("/api/v1.0") {
