@@ -7,7 +7,7 @@ import com.fasterxml.jackson.module.kotlin.*
 import java.lang.Integer.parseInt
 
 fun main(args: Array<String>) {
-    port(80)
+    port(8080)
 
     // Using string/html
     notFound("<html><body><h1>Custom 404 handling</h1></body></html>")

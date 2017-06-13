@@ -1,1 +1,1 @@
-web: sh target/bin/kotlin-todo-api -port 80
+web: sh target/bin/kotlin-todo-api -port 8080
