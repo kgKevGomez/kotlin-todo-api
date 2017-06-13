@@ -5,7 +5,11 @@
 import spark.Spark.*
 import com.fasterxml.jackson.module.kotlin.*
 fun main(args: Array<String>) {
-    port(80)
+    System.getenv("PORT")
+    port(8080)
+
+    // Using string/html
+    notFound("<html><body><h1>Custom 404 handling</h1></body></html>")
 
     val taskDao = TaskDao()
     path("/api/v1.0") {
