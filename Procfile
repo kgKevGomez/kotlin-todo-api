@@ -1,1 +1,1 @@
-web: sh target/bin/kotlin-todo-api
+web: sh target/bin/kotlin-todo-api -port=$PORT
