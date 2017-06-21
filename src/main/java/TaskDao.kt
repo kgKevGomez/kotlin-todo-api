@@ -10,19 +10,23 @@ class TaskDao {
             Task(2, "Create a 'Hello World' App", "Using spark framework", false)
     )
 
-    var lastId: AtomicInteger = AtomicInteger(tasks.size - 1)
+    var lastId: AtomicInteger = AtomicInteger(tasks.size)
 
-    fun add(name: String, description: String, done: Boolean) {
+    fun add(name: String, description: String?) : Task {
+        if (tasks.any { x -> x.name?.trim()?.toLowerCase().equals(name) })
+            throw IllegalArgumentException("Another task with the same name already exists.")
+
         val id = lastId.incrementAndGet()
-        tasks.add(Task(id, name, description, done))
+        val newTask = Task(id, name, description, false)
+        tasks.add(newTask)
+
+        return newTask
     }
 
-    fun complete(id: Int) : Boolean {
+    fun toggleStatus(id: Int) : Boolean {
         val task: Task = tasks.find { (id1) -> id1 == id } ?: throw IllegalArgumentException("The provided Task ID doesn't exist")
-        task.done = true
+        task.done = !(task.done?:true)
 
         return true
     }
-
-
 }
