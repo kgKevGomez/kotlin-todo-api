@@ -28,6 +28,13 @@ fun main(args: Array<String>) {
         response.body("{\"message\":\"${ex.message}\"}")
     }
 
+    after("*"){
+        _, res ->
+        res.type("application/json")
+
+
+    }
+
     val taskDao = TaskDao()
     path("/api/v1.0") {
         before("/*") {
@@ -44,15 +51,26 @@ fun main(args: Array<String>) {
                     val data : Task = jacksonObjectMapper().readValue(req.body())
                     val name = data.name ?: throw IllegalArgumentException("Name is a required field.")
 
-                    val newTask: Task = taskDao.add(name, data.description ?: "")
+                    val newTask: Task = taskDao.add(name, data.description ?: "", data.imageUrl ?: "")
                     res.status(201)
                     jacksonObjectMapper().writeValueAsString(newTask)
 
             }
-            put("/:id") {
+            put("/:id/status") {
                 req, res ->
                 if (taskDao.toggleStatus(parseInt(req.params(":id"))))
                     res.status(204)
+            }
+            put("/:id") {
+                req, res ->
+                val body = req.body()
+                if (body == "" || body == null)
+                    throw IllegalArgumentException("The body of the request is required")
+
+                val data : Task = jacksonObjectMapper().readValue(body)
+
+                taskDao.update(parseInt(req.params(":id")), data)
+                res.status(204)
             }
         }
     }

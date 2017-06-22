@@ -4,4 +4,4 @@
 
 import kotlin.*
 
-data class Task(val id: Int, var name: String?, var description: String?, var done: Boolean?)
+data class Task(val id: Int, var name: String?, var description: String?, var imageUrl : String?, var done: Boolean?)
